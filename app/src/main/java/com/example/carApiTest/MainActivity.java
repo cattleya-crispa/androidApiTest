@@ -35,8 +35,10 @@ public class MainActivity extends AppCompatActivity {
     private TextView textViewGetValue;
     private TextView textViewPostValue;
     //private String urlIpText = "http://httpbin.org/ip";
-    private String urlIpText = "http://192.168.0.5:3000/api/v1/doorState1Right";
-    private String urlPostText = "http://192.168.0.5:3000/api/v1/add2";
+//    private String urlIpText = "http://192.168.0.5:3000/api/v1/doorState1Right";
+//    private String urlPostText = "http://192.168.0.5:3000/api/v1/add2";
+    private String urlIpText = "http://10.0.2.2:3000/api/v1/doorState1Right";
+    private String urlPostText = "http://10.0.2.2:3000/api/v1/add2";
     private String ip = "";
     private String dS2R ="";
     private String nameAndType = "";
