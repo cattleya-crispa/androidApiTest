@@ -33,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView textView;
     private TextView textView2;
     private TextView textViewGetValue;
+    private TextView textViewPostValue;
     //private String urlIpText = "http://httpbin.org/ip";
     private String urlIpText = "http://192.168.0.5:3000/api/v1/doorState1Right";
     private String urlPostText = "http://192.168.0.5:3000/api/v1/add2";
@@ -54,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
         textView = findViewById(R.id.textView);
         textView2 = findViewById(R.id.textView2);
         textViewGetValue = findViewById(R.id.textViewGetValue);
+        textViewPostValue = findViewById(R.id.textViewPostValue);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -103,22 +105,31 @@ public class MainActivity extends AppCompatActivity {
                             response = postAPI();
                             Log.d("hoge", "ログ表示POSTのデータ=" + response);
                             postData = response;
-                            JSONArray jsonarray= new JSONArray(response);
-                            for(int i=0; i < jsonarray.length(); i++){
-                                JSONObject jsonobject = jsonarray.getJSONObject(i);
-                                String desire = jsonobject.getString("desire");
-                                nameAndType = desire;
-                            }
-                            //JSONObject rootJSON = new JSONObject(response);
-                            //JSONObject formJSON = rootJSON.getJSONObject("form");
-                            //nameAndType = formJSON.getString("name") + "/" + formJSON.getString("type");
+//                           JSONArray jsonarray= new JSONArray(response);
+//                            for(int i=0; i < jsonarray.length(); i++){
+//                                JSONObject jsonobject = jsonarray.getJSONObject(i);
+//                                String desire = jsonobject.getString("desire");
+//                                nameAndType = desire;
+//                            }
+                            JSONObject rootJSON = new JSONObject(response);
+                            //JSONObject formJSON = rootJSON.getJSONObject("desire");
+                            nameAndType = rootJSON.getString("id")
+                                    + "\n要求：" + rootJSON.getString("desire")
+                                    + "\nチェック：" + rootJSON.getString("done")
+                                    + "\nレポート：" + rootJSON.getString("reported")
+                                    + "\n要求先：" + rootJSON.getString("identifier")
+                                    + "\n要求属性：" + rootJSON.getString("attribute")
+                                    + "\n場所：" + rootJSON.getString("location")
+                                    + "\n値：" + rootJSON.getString("attributeValue")
+                            ;
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
                         handler.post(new Runnable() {
                             @Override
                             public void run() {
-                                textView2.setText(postData);
+                                textView2.setText("POSTレスポンス:\n"+postData);
+                                textViewPostValue.setText("オブジェクト:\n" + nameAndType);
                             }
                         });
 
